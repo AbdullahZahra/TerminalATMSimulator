@@ -1,13 +1,61 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
+    double balance = 0;
+    Scanner input = new Scanner(System.in);
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+    System.out.println("Welcome to our bank services!");
+
+    while(true) {
+        try {
+            displayMenu();
+            int choice = input.nextInt();
+            switch (choice) {
+                case 1:
+                    displayBalance(balance);
+                    break;
+                case 2:
+                    System.out.print("Please enter the deposited amount: ");
+                    balance = processDeposit(balance, input.nextDouble());
+                    System.out.println("Deposited successfully, your current balance is: " + balance);
+                    break;
+                case 3:
+                    System.out.print("Please enter the withdrawal amount: ");
+                    balance = processWithdraw(balance, input.nextDouble());
+                    System.out.println("Your current balance is: " + balance);
+                    break;
+                case 4:
+                    System.out.println("Thank you for using our bank services!");
+                    return;
+                default:
+                    System.out.println("Invalid choice, Please try again...");
+                    break;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid choice, Please try again...");
+        }
+    }
+}
+
+public static void displayMenu() {
+    System.out.println("1. Check Balance");
+    System.out.println("2. Deposit Money");
+    System.out.println("3. Withdraw Money");
+    System.out.println("4. Exit");
+    System.out.print("Please choose an option: ");
+}
+
+public static void displayBalance(double balance) {
+    System.out.println("Your current balance is: " + balance);
+}
+
+public static double processDeposit(double currentBalance, double depositAmount) {
+    return currentBalance + depositAmount;
+}
+
+public static double processWithdraw(double currentBalance, double withdrawalAmount) {
+    if (currentBalance >= withdrawalAmount) {
+        return currentBalance - withdrawalAmount;
+    } else {
+        System.out.println("Insufficient funds. Please try again...");
+        return currentBalance;
     }
 }
