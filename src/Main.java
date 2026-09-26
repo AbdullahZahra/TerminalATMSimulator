@@ -15,7 +15,7 @@ void main() {
                 case 2:
                     System.out.print("Please enter the deposited amount: ");
                     balance = processDeposit(balance, input.nextDouble());
-                    System.out.println("Deposited successfully, your current balance is: " + balance);
+                    System.out.println("Your current balance is: " + balance);
                     break;
                 case 3:
                     System.out.print("Please enter the withdrawal amount: ");
@@ -31,6 +31,7 @@ void main() {
             }
         } catch (InputMismatchException e) {
             System.out.println("Invalid choice, Please try again...");
+            input.nextLine();
         }
     }
 }
@@ -48,6 +49,10 @@ public static void displayBalance(double balance) {
 }
 
 public static double processDeposit(double currentBalance, double depositAmount) {
+    if (depositAmount <= 0) {
+        System.out.println("Invalid deposit amount, Please try again...");
+        return currentBalance;
+    }
     return currentBalance + depositAmount;
 }
 
