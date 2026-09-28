@@ -7,7 +7,7 @@ void main() {
 
     System.out.println("Welcome to our bank services!");
 
-    while(true) {
+    while (true) {
         try {
             displayMenu();
             int choice = input.nextInt();
@@ -60,10 +60,7 @@ public static double processDeposit(double currentBalance, double depositAmount)
         System.out.println("Invalid deposit amount, Please try again...");
         return currentBalance;
     }
-    if (transactionCount < 5) {
-    transactions[transactionCount] = depositAmount;
-    transactionCount++;
-    }
+    setTransactions(depositAmount);
     return currentBalance + depositAmount;
 }
 
@@ -73,10 +70,8 @@ public static double processWithdraw(double currentBalance, double withdrawalAmo
         return currentBalance;
     }
     if (currentBalance >= withdrawalAmount) {
-        if (transactionCount < 5) {
-        transactions[transactionCount] = -withdrawalAmount;
-        transactionCount++;
-        }
+
+        setTransactions(-withdrawalAmount);
         return currentBalance - withdrawalAmount;
     } else {
         System.out.println("Insufficient funds. Please try again...");
@@ -85,13 +80,23 @@ public static double processWithdraw(double currentBalance, double withdrawalAmo
 }
 
 public static void displayTransactions() {
-    if (transactionCount > 0) {
-    System.out.println("Here are you transactions: ");
-    for (int i = 0; i < transactionCount; i++) {
-        System.out.println("Transaction " + (i + 1) + ": "  + transactions[i]);
-    }
+    if (transactionCount > 0 && transactionCount < 5) {
+        System.out.println("Here are you transactions: ");
+        for (int i = 0; i < transactionCount; i++) {
+            System.out.println("Transaction " + (i + 1) + ": " + transactions[i]);
+        }
+    } else if (transactionCount > 5) {
+        System.out.println("Here are you transactions: ");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Transaction " + (i + 1) + ": " + transactions[i]);
+        }
     } else {
         System.out.println("You don't have any transactions.");
     }
     System.out.println();
+}
+
+public static void setTransactions(double transactionAmount) {
+    transactions[transactionCount % 5] = transactionAmount;
+    transactionCount++;
 }
