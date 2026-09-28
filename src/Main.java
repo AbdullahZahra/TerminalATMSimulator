@@ -85,7 +85,7 @@ public static void displayTransactions() {
         for (int i = 0; i < transactionCount; i++) {
             System.out.println("Transaction " + (i + 1) + ": " + transactions[i]);
         }
-    } else if (transactionCount > 5) {
+    } else if (transactionCount >= 5) {
         System.out.println("Here are you transactions: ");
         for (int i = 0; i < 5; i++) {
             System.out.println("Transaction " + (i + 1) + ": " + transactions[i]);
