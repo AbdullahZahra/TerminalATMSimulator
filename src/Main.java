@@ -68,6 +68,10 @@ public static double processDeposit(double currentBalance, double depositAmount)
 }
 
 public static double processWithdraw(double currentBalance, double withdrawalAmount) {
+    if (withdrawalAmount <= 0) {
+        System.out.println("Invalid withdrawal amount, Please try again...");
+        return currentBalance;
+    }
     if (currentBalance >= withdrawalAmount) {
         if (transactionCount < 5) {
         transactions[transactionCount] = -withdrawalAmount;
