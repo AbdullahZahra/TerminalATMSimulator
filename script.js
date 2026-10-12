@@ -1,46 +1,49 @@
 let loopVariable = true;
-let balance = 0;
-let transactions = [];
+
+const account = {
+  balance: 0,
+  transactions: [],
+};
 
 function processDeposit(amount) {
   if (amount > 0) {
-    balance += amount;
-    transactions.push(amount);
+    account.balance += amount;
+    account.transactions.push(amount);
     alert(
-      `You have successfully deposited ${amount}. Your new balance is: ${balance}`,
+      `You have successfully deposited ${amount}. Your new balance is: ${account.balance}`,
     );
   } else {
     alert("Invalid amount, please try again.");
-    alert(`Your current balance is: ${balance}`);
+    alert(`Your current balance is: ${account.balance}`);
   }
 }
 
 function processWithdrawal(amount) {
-  if (amount > 0 && amount <= balance) {
-    balance -= amount;
-    transactions.push(-amount);
+  if (amount > 0 && amount <= account.balance) {
+    account.balance -= amount;
+    account.transactions.push(-amount);
     alert(
-      `You have successfully withdrawn ${amount}. Your new balance is: ${balance}`,
+      `You have successfully withdrawn ${amount}. Your new balance is: ${account.balance}`,
     );
   } else {
     alert("Invalid amount or insufficient funds, please try again.");
-    alert(`Your current balance is: ${balance}`);
+    alert(`Your current balance is: ${account.balance}`);
   }
 }
 
 function viewTransactionsHistory() {
-  if (transactions.length === 0) {
+  if (account.transactions.length === 0) {
     alert("You have no transactions, yet!");
   } else {
     let historyText = "Here's your transactions history:\n";
-    for (let i = 0; i < transactions.length; i++) {
-      historyText += String(transactions[i]) + "\n";
+    for (let i = 0; i < account.transactions.length; i++) {
+      historyText += String(account.transactions[i]) + "\n";
     }
-    alert(historyText + `\nYour current balance is: ${balance}`);
+    alert(historyText + `\nYour current balance is: ${account.balance}`);
   }
 }
 
-alert("Welcome to the bank! Your current balance is: " + balance);
+alert("Welcome to the bank! Your current balance is: " + account.balance);
 
 while (loopVariable) {
   let choice = prompt(
@@ -49,7 +52,7 @@ while (loopVariable) {
 
   switch (choice) {
     case "1":
-      alert(`Your current balance is: ${balance}`);
+      alert(`Your current balance is: ${account.balance}`);
       break;
     case "2":
       let depositAmount = parseFloat(
@@ -67,7 +70,9 @@ while (loopVariable) {
       viewTransactionsHistory();
       break;
     case "5":
-      alert("Thank you for using the bank! Your final balance is: " + balance);
+      alert(
+        `Thank you for using the bank! Your final balance is: ${account.balance}`,
+      );
       loopVariable = false;
       break;
     default:
