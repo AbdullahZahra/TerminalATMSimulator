@@ -3,45 +3,45 @@ let loopVariable = true;
 const account = {
   balance: 0,
   transactions: [],
-};
 
-function processDeposit(amount) {
-  if (amount > 0) {
-    account.balance += amount;
-    account.transactions.push(amount);
-    alert(
-      `You have successfully deposited ${amount}. Your new balance is: ${account.balance}`,
-    );
-  } else {
-    alert("Invalid amount, please try again.");
-    alert(`Your current balance is: ${account.balance}`);
-  }
-}
-
-function processWithdrawal(amount) {
-  if (amount > 0 && amount <= account.balance) {
-    account.balance -= amount;
-    account.transactions.push(-amount);
-    alert(
-      `You have successfully withdrawn ${amount}. Your new balance is: ${account.balance}`,
-    );
-  } else {
-    alert("Invalid amount or insufficient funds, please try again.");
-    alert(`Your current balance is: ${account.balance}`);
-  }
-}
-
-function viewTransactionsHistory() {
-  if (account.transactions.length === 0) {
-    alert("You have no transactions, yet!");
-  } else {
-    let historyText = "Here's your transactions history:\n";
-    for (let i = 0; i < account.transactions.length; i++) {
-      historyText += String(account.transactions[i]) + "\n";
+  processDeposit: function (amount) {
+    if (amount > 0) {
+      this.balance += amount;
+      this.transactions.push(amount);
+      alert(
+        `You have successfully deposited ${amount}. Your new balance is: ${this.balance}`,
+      );
+    } else {
+      alert("Invalid amount, please try again.");
+      alert(`Your current balance is: ${this.balance}`);
     }
-    alert(historyText + `\nYour current balance is: ${account.balance}`);
-  }
-}
+  },
+
+  processWithdrawal: function (amount) {
+    if (amount > 0 && amount <= this.balance) {
+      this.balance -= amount;
+      this.transactions.push(-amount);
+      alert(
+        `You have successfully withdrawn ${amount}. Your new balance is: ${this.balance}`,
+      );
+    } else {
+      alert("Invalid amount or insufficient funds, please try again.");
+      alert(`Your current balance is: ${this.balance}`);
+    }
+  },
+
+  viewTransactionsHistory: function () {
+    if (this.transactions.length === 0) {
+      alert("You have no transactions, yet!");
+    } else {
+      let historyText = "Here's your transactions history:\n";
+      for (let i = 0; i < this.transactions.length; i++) {
+        historyText += String(this.transactions[i]) + "\n";
+      }
+      alert(historyText + `\nYour current balance is: ${this.balance}`);
+    }
+  },
+};
 
 alert("Welcome to the bank! Your current balance is: " + account.balance);
 
@@ -58,16 +58,16 @@ while (loopVariable) {
       let depositAmount = parseFloat(
         prompt("Please, enter the amount to deposit: "),
       );
-      processDeposit(depositAmount);
+      account.processDeposit(depositAmount);
       break;
     case "3":
       let withdrawAmount = parseFloat(
         prompt("Please, enter the amount to withdraw: "),
       );
-      processWithdrawal(withdrawAmount);
+      account.processWithdrawal(withdrawAmount);
       break;
     case "4":
-      viewTransactionsHistory();
+      account.viewTransactionsHistory();
       break;
     case "5":
       alert(
